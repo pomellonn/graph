@@ -1,0 +1,90 @@
+#include <iostream>
+
+#include <algorithm>
+
+#include <queue>
+
+#include <vector>
+
+using namespace std;
+
+void show_vector(vector<int>& a_vec)
+{
+    for (int& it : a_vec)
+    {
+        cout << it + 1 << " ";
+    }
+}
+
+int main()
+{
+    int n, m;
+    cin >> n;
+    cin >> m;
+    const int A = n;
+    int m1[m][2], M[A][A];
+
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < 2; j++)
+            cin >> m1[i][j];
+    }
+    vector<int> doch(A);
+    vector<int> par(A, -1);
+    vector<int> used(A, 0);
+
+
+    int start, aim;
+    cin >> start >> aim;
+    --start; --aim;
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+            M[i][j] = 0;
+    }
+
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            M[m1[i][0] - 1][m1[i][1] - 1] = 1;
+            M[m1[i][1] - 1][m1[i][0] - 1] = 1;
+        }
+    }
+
+    queue<int> q;
+    q.push(start);
+
+    doch[start] = 0;
+    used[start] = 1;
+
+    while (!q.empty())
+    {
+        int val = q.front(); q.pop();
+
+        for (int i = 0; i < A; ++i)
+        {
+            if (M[val][i] && !used[i])
+            {
+                doch[i] = doch[val] + 1;
+                par[i] = val;
+                q.push(i);
+                used[i] = true;
+            }
+        }
+
+    }
+
+    cout << doch[aim] << endl;
+    vector <int> way;
+    for (int i = aim; i != -1; i = par[i])
+    {
+        way.push_back(i);
+    }
+    reverse(way.begin(), way.end());
+    for (int i : way)
+    {
+        cout << i + 1 << " ";
+    }
+}
