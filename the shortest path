@@ -1,18 +1,14 @@
 #include <iostream>
-
 #include <algorithm>
-
 #include <queue>
-
 #include <vector>
-
 using namespace std;
 
-void show_vector(vector<int>& a_vec)
+void show_vector(vector<int> & a_vec)
 {
-    for (int& it : a_vec)
+    for (int& x : a_vec)
     {
-        cout << it + 1 << " ";
+        cout << x + 1 << " ";
     }
 }
 
@@ -34,9 +30,9 @@ int main()
     vector<int> used(A, 0);
 
 
-    int start, aim;
-    cin >> start >> aim;
-    --start; --aim;
+    int st, go;
+    cin >> st >> go;
+    --st; --go;
 
     for (int i = 0; i < n; i++)
     {
@@ -53,15 +49,15 @@ int main()
         }
     }
 
-    queue<int> q;
-    q.push(start);
+    queue<int> u;
+    u.push(st);
 
-    doch[start] = 0;
-    used[start] = 1;
+    doch[st] = 0;
+    used[st] = 1;
 
-    while (!q.empty())
+    while (!u.empty())
     {
-        int val = q.front(); q.pop();
+        int val = u.front(); u.pop();
 
         for (int i = 0; i < A; ++i)
         {
@@ -69,21 +65,20 @@ int main()
             {
                 doch[i] = doch[val] + 1;
                 par[i] = val;
-                q.push(i);
+                u.push(i);
                 used[i] = true;
             }
         }
 
     }
-
-    cout << doch[aim] << endl;
-    vector <int> way;
-    for (int i = aim; i != -1; i = par[i])
+    cout << doch[go] << endl;
+    vector <int> path;
+    for (int i = go; i != -1; i = par[i])
     {
-        way.push_back(i);
+        path.push_back(i);
     }
-    reverse(way.begin(), way.end());
-    for (int i : way)
+    reverse(path.begin(), path.end());
+    for (int i : path)
     {
         cout << i + 1 << " ";
     }
