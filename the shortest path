@@ -15,9 +15,10 @@ void show_vector(vector<int> & a_vec)
 int main()
 {
     int n, m;
+    const int A = n;
     cin >> n;
     cin >> m;
-    const int A = n;
+   
     int m1[m][2], M[A][A];
 
     for (int i = 0; i < m; i++)
@@ -28,11 +29,11 @@ int main()
     vector<int> doch(A);
     vector<int> par(A, -1);
     vector<int> used(A, 0);
-
-
+    
     int st, go;
     cin >> st >> go;
-    --st; --go;
+    --go;
+    --st; 
 
     for (int i = 0; i < n; i++)
     {
@@ -51,7 +52,6 @@ int main()
 
     queue<int> u;
     u.push(st);
-
     doch[st] = 0;
     used[st] = 1;
 
